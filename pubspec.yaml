@@ -1,5 +1,5 @@
 name: app_covid_19
-description: A new Flutter project.
+description: Test
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -23,10 +23,26 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  ## Provider Package
+  provider: ^4.0.5
+  # Velocity Framework
+  velocity_x: ^0.3.0
+  # Http Client
+  http: ^0.12.0+4
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # Icons generator
+  flutter_launcher_icons:
+
+# Icon path
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/icon.png"
+  adaptive_icon_background: "assets/icons/icon.png"
 
 
 # For information on the generic Dart part of this file, see the
