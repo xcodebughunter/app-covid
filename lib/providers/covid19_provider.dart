@@ -1,14 +1,15 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:app_covid_19/models/paises_model.dart';
 
-class Covid19Provider {
+class Covid19Provider with ChangeNotifier{
   
   // URL API
   final String _url = 'https://api.covid19api.com';
 
-  List<Country> _paises = [];
+  List<Country> paises = [];
   Global _estadisticas = Global(
     newConfirmed: 1,
     totalConfirmed: 1,
@@ -20,8 +21,7 @@ class Covid19Provider {
 
   // List
   Future<List<Country>> obtenerPaises() async {
-    
-    _paises = [];
+    paises = [];
 
     final url = '$_url/summary';
 
@@ -33,16 +33,25 @@ class Covid19Provider {
 
     final estadisticasData = new Global.fromJson(decodedData["Global"]);
 
-    _paises = paisesData.items;
+    paises = paisesData.items;
     _estadisticas = estadisticasData;
     
-    return _paises;
+    notifyListeners();
+    return paises;
   }
 
-  List<Country> get listadoPaises => _paises;
+  List<Country> get listadoPaises => paises;
 
   Global get estadisticas => _estadisticas;
 
-  get listadoPaisesConfirmedDesc => _paises.sort((a, b) => a.totalConfirmed.compareTo(b.totalConfirmed));
-  get listadoPaisesConfirmedAsc => _paises.sort((b, a) => a.totalConfirmed.compareTo(b.totalConfirmed));
+  void listadoPaisesConfirmedAsc() async{ 
+    paises.sort((a, b) => a.country.compareTo(b.country));
+    paises.sort((a, b) => a.totalConfirmed.compareTo(b.totalConfirmed));
+    notifyListeners();
+  }
+  void listadoPaisesConfirmedDesc() async{
+    paises.sort((a, b) => a.country.compareTo(b.country));
+    paises.sort((b, a) => a.totalConfirmed.compareTo(b.totalConfirmed));
+    notifyListeners();
+  }
 }

@@ -13,12 +13,12 @@ class GlogalPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text('Nuevas confirmadas: ${ covidProvider.estadisticas.newDeaths }').py4(),
-            Text('Total confirmadas: ${ covidProvider.estadisticas.newDeaths }').py4(),
+            Text('Nuevas confirmadas: ${ covidProvider.estadisticas.newConfirmed }').py4(),
+            Text('Total confirmadas: ${ covidProvider.estadisticas.totalConfirmed }').py4(),
             Text('Nuevas muertes: ${ covidProvider.estadisticas.newDeaths }').py4(),
-            Text('Total muertes: ${ covidProvider.estadisticas.newDeaths }').py4(),
-            Text('Nuevos recuperados: ${ covidProvider.estadisticas.newDeaths }').py4(),
-            Text('Total recuperados: ${ covidProvider.estadisticas.newDeaths }').py4()
+            Text('Total muertes: ${ covidProvider.estadisticas.totalDeaths }').py4(),
+            Text('Nuevos recuperados: ${ covidProvider.estadisticas.newRecovered }').py4(),
+            Text('Total recuperados: ${ covidProvider.estadisticas.totalRecovered }').py4()
           ],
         ),
       );

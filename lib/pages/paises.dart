@@ -1,3 +1,4 @@
+import 'package:app_covid_19/models/paises_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -13,12 +14,11 @@ class PaisesPage extends StatefulWidget {
 class _PaisesPageState extends State<PaisesPage> {
 
   final _textDetail = TextStyle( fontWeight: FontWeight.bold, fontSize: 18, color: Color(0xFF000000));
-  
 
   @override
   Widget build(BuildContext context) {
 
-    final covidProvider = Provider.of<Covid19Provider>(context, listen: true);
+    final covidProvider = Provider.of<Covid19Provider>(context, listen: false);
     covidProvider.obtenerPaises();
 
     return Container(
@@ -30,8 +30,7 @@ class _PaisesPageState extends State<PaisesPage> {
                 Expanded(
                   child: RaisedButton(
                     onPressed: () {
-                      covidProvider.listadoPaisesConfirmedDesc;
-                      covidProvider.listadoPaises;
+                      covidProvider.listadoPaisesConfirmedAsc();
                     },
                     child: const Text(
                       'Confirmadas ASC',
@@ -42,7 +41,7 @@ class _PaisesPageState extends State<PaisesPage> {
                 Expanded(
                   child: RaisedButton(
                     onPressed: () {
-                      covidProvider.listadoPaisesConfirmedAsc;
+                      covidProvider.listadoPaisesConfirmedDesc();
                     },
                     child: const Text(
                       'Confirmadas DESC',
@@ -55,27 +54,25 @@ class _PaisesPageState extends State<PaisesPage> {
             FutureProvider(
               create: (_) async => covidProvider.listadoPaises,
               lazy: false,
-              child: FutureBuilder(
-                future: covidProvider.obtenerPaises(),
-                builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-                  
-                  if ( snapshot.hasData ) {
+              child: Consumer<Covid19Provider>(
+                builder: (BuildContext context, data, child) {
+                  if ( data.paises.length > 0 ) {
                     return Expanded( 
                       child: ListView.separated(
-                        itemCount: covidProvider.listadoPaises.length,
+                        itemCount: data.paises.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ExpansionTile(
-                            title: Text('${covidProvider.listadoPaises[index].country}'),
+                            title: Text('${data.paises[index].country}'),
                             children: <Widget>[
                               Divider(height: 5.0),
                               ListTile(
                                 title: Column(
                                   children: <Widget>[
-                                    Text('Nuevos confirmados: ${covidProvider.listadoPaises[index].newConfirmed}', style: _textDetail).py12(),
-                                    Text('Total confirmados: ${covidProvider.listadoPaises[index].totalConfirmed}', style: _textDetail).py12()
+                                    Text('Nuevos confirmados: ${data.paises[index].newConfirmed}', style: _textDetail).py12(),
+                                    Text('Total confirmados: ${data.paises[index].totalConfirmed}', style: _textDetail).py12()
                                   ],
                                 ),
-                                subtitle: Text('Fecha actualización: ${covidProvider.listadoPaises[index].date}', textAlign: TextAlign.right, ).py20(),
+                                subtitle: Text('Fecha actualización: ${data.paises[index].date}', textAlign: TextAlign.right, ).py20(),
                               ),
                             ],
                           );

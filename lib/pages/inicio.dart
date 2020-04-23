@@ -31,8 +31,8 @@ class _InicioPageState extends State<InicioPage> {
       appBar: AppBar(
         title: Text('Covid 19'),
       ),
-      body:  Provider(
-          create: (_) => new Covid19Provider(),
+      body: ChangeNotifierProvider(
+          create: (context) => Covid19Provider(),
           child: Center(
             child: _widgetOptions.elementAt(_selectedIndex),
           ),
