@@ -1,9 +1,11 @@
-import 'package:app_covid_19/providers/covid19_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app_covid_19/pages/paises.dart';
 import 'package:app_covid_19/pages/global.dart';
+import 'package:app_covid_19/pages/about.dart';
+
 import 'package:provider/provider.dart';
+import 'package:app_covid_19/providers/covid19_provider.dart';
 
 class InicioPage extends StatefulWidget {
   @override
@@ -16,7 +18,8 @@ class _InicioPageState extends State<InicioPage> {
   
   List<Widget> _widgetOptions = <Widget>[
     PaisesPage(),
-    GlogalPage()
+    GlogalPage(),
+    AboutPage()
   ];
   
   void _onItemTapped(int index) {
@@ -46,6 +49,10 @@ class _InicioPageState extends State<InicioPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.trending_up),
             title: Text('Estadísticas')
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            title: Text('Acerca de')
           )
         ],
         currentIndex: _selectedIndex,
